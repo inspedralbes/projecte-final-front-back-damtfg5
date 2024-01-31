@@ -20,21 +20,21 @@ function App() {
         <div className="h-20 w-[50%] rounded-[20rem] m-3 flex bg-honeydew">
           <div className="s-1l bg-viridian">
             <div className="s-1l-s bg-light-green"></div>
-            <input className="s-1l-s2" placeholder="Salida"></input>
+            <input className="s-1l-s2 bg-honeydew" placeholder="Salida"></input>
           </div>
           <div className="s-1l bg-viridian">
             <div className="s-1l-s bg-light-green"></div>
-            <input className="s-1l-s2" placeholder="Destino"></input>
+            <input className="s-1l-s2 bg-honeydew" placeholder="Destino"></input>
           </div>
           <div className="s-2d bg-viridian">
-            <div className="border border-night rounded-full w-[15%] m-2 bg-light-green">
+            <div className="rounded-full w-[15%] m-2 bg-light-green">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
                 viewBox="0 0 24 24"
                 strokeWidth={1.5}
                 stroke="currentColor"
-                className="w-6 h-6 m-auto mt-1"
+                className="w-6 h-6 m-auto mt-2"
               >
                 <path
                   strokeLinecap="round"
@@ -45,7 +45,7 @@ function App() {
             </div>
             <input
               type="date"
-              className="border border-night rounded-full w-[85%] m-2 p-3"
+              className="rounded-full w-[85%] m-2 p-3 bg-honeydew"
               placeholder="Fecha"
             ></input>
           </div>
