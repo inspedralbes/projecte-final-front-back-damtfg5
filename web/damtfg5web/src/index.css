@@ -7,7 +7,7 @@
     @apply border border-night rounded-[20rem] w-[35%] m-3 flex justify-between
   }
   .s-2d{
-    @apply "border border-night rounded-[20rem] w-[15%] m-3 flex justify-between"
+    @apply border border-night rounded-[20rem] w-[15%] m-3 flex justify-between
   }
   
 }

@@ -26,7 +26,7 @@ function App() {
             <div className="border border-night rounded-full w-[9%] m-2"></div>
             <div className="border border-night rounded-full w-[91%] m-2"></div>
           </div>
-          <div className="border border-night rounded-[20rem] w-[15%] m-3 flex justify-between">
+          <div className="s-2d">
             <div className="border border-night rounded-full w-[25%] m-2"></div>
             <div className="border border-night rounded-full w-[75%] m-2"></div>
           </div>
