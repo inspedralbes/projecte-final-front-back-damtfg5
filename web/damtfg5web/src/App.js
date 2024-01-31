@@ -3,34 +3,34 @@ import "./index.css";
 
 function App() {
   return (
-    <div className="App">
+    <div className="App bg-[url('./assets/nubesGifVerde.gif')] bg-cover">
       <header className="fixed h-20 w-[100%]">
-        <nav className="App-nav border-8 border-light-green h-[100%] flex justify-end">
+        <nav className="App-nav h-[100%] flex justify-end">
           <div className="border border-night ml-2 w-[6rem]">LOGIN</div>
           <div className="border border-night ml-2 w-[6rem]">SINGUP</div>
         </nav>
       </header>
-      <main className="border-8 border-gray-800 h-screen flex flex-col justify-center items-center">
+      <main className="h-screen flex flex-col justify-center items-center">
         <div className="text-[7rem]">
           <h1>Web TITLE</h1>
         </div>
         <div className="text-[3rem]">
           <h1>ESLOGAN</h1>
         </div>
-        <div className="border border-3 h-20 w-[60%] border-night rounded-[20rem] m-3 flex">
+        <div className="border border-3 h-20 w-[50%] border-night rounded-[20rem] m-3 flex bg-honeydew">
           <div className="s-1l">
-            <div className="border border-night rounded-full w-[9%] m-2"></div>
-            <div className="border border-night rounded-full w-[91%] m-2"></div>
+            <div className="s-1l-s"></div>
+            <input className="s-1l-s2" placeholder="Salida"></input>
           </div>
           <div className="s-1l">
-            <div className="border border-night rounded-full w-[9%] m-2"></div>
-            <div className="border border-night rounded-full w-[91%] m-2"></div>
+            <div className="s-1l-s"></div>
+            <input className="s-1l-s2" placeholder="Destino"></input>
           </div>
           <div className="s-2d">
-            <div className="border border-night rounded-full w-[25%] m-2"></div>
-            <div className="border border-night rounded-full w-[75%] m-2"></div>
+            <div className="border border-night rounded-full w-[15%] m-2"></div>
+            <input type="date" className="border border-night rounded-full w-[85%] m-2 p-3" placeholder="Fecha"></input>
           </div>
-          <button type="calendar" className="border border-night rounded-full w-[5%] m-3">B</button>
+          <button className="border border-night rounded-full w-[7%] m-3">B</button>
         </div>
       </main>
     </div>
