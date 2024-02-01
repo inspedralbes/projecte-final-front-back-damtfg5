@@ -1,12 +1,13 @@
 import "./App.css";
 import "./index.css";
+import {Link} from 'react-router-dom';
 
 function App() {
   return (
-    <div className="App bg-[url('./assets/nubesGifVerde.gif')] bg-cover">
+    <div className="App bg-[url('./Images/nubesGifVerde.gif')] bg-cover">
       <header className="fixed h-20 w-[100%]">
         <nav className="App-nav h-[100%] flex justify-end">
-          <div className="border border-night ml-2 w-[6rem]">LOGIN</div>
+          <Link to="/login" className="border border-night ml-2 w-[6rem]">LOGIN</Link>
           <div className="border border-night ml-2 w-[6rem]">SINGUP</div>
         </nav>
       </header>
@@ -18,15 +19,16 @@ function App() {
           <h1>ESLOGAN</h1>
         </div>
         <div className="h-20 w-[50%] rounded-[20rem] m-3 flex bg-honeydew">
-          <div className="s-1l bg-viridian">
-            <div className="s-1l-s bg-light-green"></div>
+          <div className="s-1l bg-honeydew">
+            <div className="s-1l-s bg-light-green">
+            </div>
             <input className="s-1l-s2 bg-honeydew" placeholder="Salida"></input>
           </div>
-          <div className="s-1l bg-viridian">
+          <div className="s-1l bg-honeydew">
             <div className="s-1l-s bg-light-green"></div>
             <input className="s-1l-s2 bg-honeydew" placeholder="Destino"></input>
           </div>
-          <div className="s-2d bg-viridian">
+          <div className="s-2d bg-honeydew">
             <div className="rounded-full w-[15%] m-2 bg-light-green">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
