@@ -1,16 +1,15 @@
 const { MongoClient, ObjectId } = require("mongodb");
-const express = require('express');
-const session = require('express-session');
-const cors = require('cors');
-const bodyParser = require('body-parser');
-const port = 3777;
-const fileUpload = require("express-fileupload")
-const http = require('http');
-const path = require('path');
-const fs = require('fs');
-const { Server } = require('socket.io');
-const { spawn } = require('child_process');
-
+const express = require("express");
+const CryptoJS = require("crypto-js");
+const session = require("express-session");
+const cors = require("cors");
+const bodyParser = require("body-parser");
+const fileUpload = require("express-fileupload");
+const http = require("http");
+const path = require("path");
+const fs = require("fs");
+const { Server } = require("socket.io");
+const { spawn } = require("child_process");
 
 const app = express();
 const server = http.createServer(app);
@@ -33,6 +32,46 @@ app.use(
   })
 );
 
+const {
+    getUsers,
+    insertUser,
+    getIdUser,
+    getUserById
+  } = require("./dbFunctions");
+
+
+app.post("/authorizationLogin", async (req, res) => {
+  var autho = true;
+  try {
+    const user = req.body;
+    user.password = doCryptMD5Hash(req.body.password);
+    const id = await getIdUser(user.mail, user.password);
+    const infoUser = await getUserById(id[0].id);
+    res.send({
+      authorization: autho,
+      name: infoUser[0].nombre,
+      id: id[0].id,
+    });
+  } catch {
+    autho = false;
+    res.send({ authorization: autho });
+  }
+});
+
+function doCryptMD5Hash(password) {
+  var hash = CryptoJS.MD5(password);
+  return hash.toString();
+}
+
+//The function goes
+app.post("/Insertuser", async (req, res) => {
+  const user = req.body;
+  user.password = doCryptMD5Hash(req.body.password);
+  await insertUser(user.name, user.surname, user.mail, user.password, user.telefono, user.country, user.cod_country, user.gender);
+  res.send({ response: "User inserted correctly", userData: user});
+});
+
+const port = 3777;
 server.listen(port, () => {
     console.log(`Server started on ${port}`);
-  });
+});
