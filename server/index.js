@@ -71,6 +71,40 @@ app.post("/Insertuser", async (req, res) => {
   res.send({ response: "User inserted correctly", userData: user});
 });
 
+io.on("connection", async (socket) => {
+  socket.on('loginPage', (id) => {
+    console.log("DENTRO DE LOGIN PAGE::    ");
+    usuariosConectados.push({ socketId: socket, userId: id })
+    usuariosConectados.forEach(u => {
+      console.log("USER ID:: ", u.userId);
+      console.log("USER SOCKET:: ", u.socketId.id);
+    });
+  })
+
+  socket.on("logout", async(mail) =>{
+    console.log(mail);
+    var user = await getUserByMailALL(mail)
+    console.log(user);
+    usuariosConectados.forEach(u => {
+      if (u.userId == user[0].user_id) {
+        usuariosConectados.pop(u)
+      }
+      console.log("USER ID:: ", u.userId);
+      console.log("USER SOCKET:: ", u.socketId.id);
+    });
+  })
+
+  socket.on("disconnect", () => {
+    usuariosConectados.forEach(u => {
+      if (u.socketId == socket) {
+        usuariosConectados.pop(u)
+      }
+      console.log("USER ID:: ", u.userId);
+      console.log("USER SOCKET:: ", u.socketId.id);
+    });
+  });
+});
+
 const port = 3777;
 server.listen(port, () => {
     console.log(`Server started on ${port}`);
