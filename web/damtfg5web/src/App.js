@@ -2,19 +2,45 @@ import "./App.css";
 import "./index.css";
 import { Link } from "react-router-dom";
 import { Calendar, DateRange } from "react-date-range";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
+import Autocomplete from "@mui/joy/Autocomplete";
+import Input from "@mui/joy/Input";
+import { set } from "date-fns";
+import { flights } from "./services/communicationManager";
 
 function App() {
+  const [cityNames, setCityNames] = useState([]);
+  const [cityCodes, setCityCodes] = useState([]);
+  const [origin, setOrigin] = useState("");
+  const [destination, setDestination] = useState("");
+  const [departureDate, setdepartureDate] = useState(new Date());
+  const [returnDate, setReturnDate] = useState(new Date());
   const [calendarShow, setCalendarShow] = useState(false);
+
+  const today = new Date();
+  const tomorrow = new Date(today);
+  tomorrow.setDate(tomorrow.getDate() + 2);
+
   const [state, setState] = useState([
     {
-      startDate: new Date(),
-      endDate: null,
+      startDate: today,
+      endDate: tomorrow,
       key: "selection",
     },
   ]);
+
+  useEffect(() => {
+    fetch("http://localhost:3001/cityCodes")
+      .then((response) => response.json())
+      .then((data) => {
+        const names = data.ciudades.map((ciudad) => ciudad.nombre);
+        setCityNames(names);
+        setCityCodes(data);
+      })
+      .catch((error) => console.error("Error:", error));
+  }, []);
 
   const handleCalendar = () => {
     setCalendarShow(!calendarShow);
@@ -32,6 +58,46 @@ function App() {
     let formattedStartDate = customFormat.format(dateRange);
 
     return formattedStartDate;
+  }
+
+  function setOriginCode(newValue) {
+    const foundCity = cityCodes.ciudades.find(
+      (city) => city.nombre === newValue
+    );
+
+    setOrigin(foundCity.citycode);
+  }
+
+  function setDestinationCode(newValue) {
+    const foundCity = cityCodes.ciudades.find(
+      (city) => city.nombre === newValue
+    );
+
+    setDestination(foundCity.citycode);
+  }
+
+  function formatDate(date) {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0"); // Los meses en JavaScript empiezan en 0
+    const day = String(date.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+  }
+
+  async function handleSearch() {
+    const departureDateFormatted = formatDate(departureDate);
+    const returnDateFormatted = formatDate(returnDate);
+
+    const requestBody = {
+      originLocationCode: origin,
+      destinationLocationCode: destination,
+      departureDate: departureDateFormatted,
+      returnDate: returnDateFormatted,
+      adults: 2,
+      nonStop: false,
+    };
+
+    const response = await flights(requestBody);
   }
 
   return (
@@ -53,15 +119,28 @@ function App() {
         </div>
         <div className="h-20 w-[50%] rounded-[20rem] m-3 flex bg-honeydew">
           <div className="s-1l bg-honeydew">
-            <div className="s-1l-s bg-light-green"></div>
-            <input className="s-1l-s2 bg-honeydew" placeholder="Salida"></input>
+            <div className="s-1l-s bg-light-green hidden"></div>
+            <div className="ml-4 mt-3">
+              <Autocomplete
+                placeholder="Origen"
+                options={cityNames}
+                onChange={(event, newValue) => {
+                  setOriginCode(newValue);
+                }}
+              />
+            </div>
           </div>
           <div className="s-1l bg-honeydew">
-            <div className="s-1l-s bg-light-green"></div>
-            <input
-              className="s-1l-s2 bg-honeydew"
-              placeholder="Destino"
-            ></input>
+            <div className="s-1l-s bg-light-green hidden"></div>
+            <div className="mt-3">
+              <Autocomplete
+                placeholder="Destino"
+                options={cityNames}
+                onChange={(event, newValue) => {
+                  setDestinationCode(newValue);
+                }}
+              />
+            </div>
           </div>
           <div className="s-2d bg-honeydew">
             <button onClick={handleCalendar}>
@@ -86,7 +165,11 @@ function App() {
               <div>
                 <DateRange
                   editableDateInputs={true}
-                  onChange={(item) => setState([item.selection])}
+                  onChange={(item) => {
+                    setState([item.selection]);
+                    setdepartureDate(item.selection.startDate);
+                    setReturnDate(item.selection.endDate);
+                  }}
                   moveRangeOnFirstSelection={false}
                   ranges={state}
                 />
@@ -97,7 +180,9 @@ function App() {
                   <table key={index}>
                     <tbody>
                       <tr>
-                        <td className="p-2">{changeFormat(dateRange.startDate)}</td>
+                        <td className="p-2">
+                          {changeFormat(dateRange.startDate)}
+                        </td>
                         <td className="p-1">
                           {dateRange.endDate
                             ? changeFormat(dateRange.endDate)
@@ -110,7 +195,10 @@ function App() {
               </div>
             )}
           </div>
-          <button className="border border-customGreen bg-light-green rounded-full w-[7%] m-3 hover:bg-customGreen">
+          <button
+            className="border border-customGreen bg-light-green rounded-full w-[7%] m-3 hover:bg-customGreen"
+            onClick={handleSearch}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

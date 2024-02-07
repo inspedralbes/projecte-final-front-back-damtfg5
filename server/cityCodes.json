@@ -1,0 +1,68 @@
+{
+  "ciudades": [
+    {
+      "nombre": "Nueva York",
+      "citycode": "NYC"
+    },
+    {
+      "nombre": "París",
+      "citycode": "PAR"
+    },
+    {
+      "nombre": "Tokio",
+      "citycode": "TKO"
+    },
+    {
+      "nombre": "Londres",
+      "citycode": "LON"
+    },
+    {
+      "nombre": "Roma",
+      "citycode": "ROM"
+    },
+    {
+      "nombre": "Sídney",
+      "citycode": "SYD"
+    },
+    {
+      "nombre": "Pekín",
+      "citycode": "PEK"
+    },
+    {
+      "nombre": "San Francisco",
+      "citycode": "SFO"
+    },
+    {
+      "nombre": "Moscú",
+      "citycode": "MOW"
+    },
+    {
+      "nombre": "Ciudad del Cabo",
+      "citycode": "CPT"
+    },
+    {
+      "nombre": "Singapur",
+      "citycode": "SIN"
+    },
+    {
+      "nombre": "México DF",
+      "citycode": "MEX"
+    },
+    {
+      "nombre": "Berlín",
+      "citycode": "BER"
+    },
+    {
+      "nombre": "Sao Paulo",
+      "citycode": "SAO"
+    },
+    {
+      "nombre": "Estambul",
+      "citycode": "IST"
+    },
+    {
+      "nombre": "Barcelona",
+      "citycode": "BCN"
+    }
+  ]
+}
