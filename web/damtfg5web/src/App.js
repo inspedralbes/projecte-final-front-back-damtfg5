@@ -107,7 +107,13 @@ function App() {
           <Link to="/login" className="border border-night ml-2 w-[6rem]">
             LOGIN
           </Link>
-          <div className="border border-night ml-2 w-[6rem]">SINGUP</div>
+          <Link
+            to="/register"
+            className="border border-night ml-2 w-[6rem]"
+          >
+            SINGUP
+          </Link>
+          <Link to="/searchTravel" className="border border-night ml-2 w-[6rem]">SearchTravel</Link>
         </nav>
       </header>
       <main className="h-screen flex flex-col justify-center items-center">
