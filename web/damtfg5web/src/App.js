@@ -41,7 +41,13 @@ function App() {
           <Link to="/login" className="border border-night ml-2 w-[6rem]">
             LOGIN
           </Link>
-          <div className="border border-night ml-2 w-[6rem]">SINGUP</div>
+          <Link
+            to="/register"
+            className="border border-night ml-2 w-[6rem]"
+          >
+            SINGUP
+          </Link>
+          <Link to="/searchTravel" className="border border-night ml-2 w-[6rem]">SearchTravel</Link>
         </nav>
       </header>
       <main className="h-screen flex flex-col justify-center items-center">
@@ -97,7 +103,9 @@ function App() {
                   <table key={index}>
                     <tbody>
                       <tr>
-                        <td className="p-2">{changeFormat(dateRange.startDate)}</td>
+                        <td className="p-2">
+                          {changeFormat(dateRange.startDate)}
+                        </td>
                         <td className="p-1">
                           {dateRange.endDate
                             ? changeFormat(dateRange.endDate)
