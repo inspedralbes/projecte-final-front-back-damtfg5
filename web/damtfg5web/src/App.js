@@ -1,6 +1,6 @@
 import "./App.css";
 import "./index.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Calendar, DateRange } from "react-date-range";
 import { useState, useEffect } from "react";
 import "react-date-range/dist/styles.css";
@@ -9,8 +9,11 @@ import Autocomplete from "@mui/joy/Autocomplete";
 import Input from "@mui/joy/Input";
 import { set } from "date-fns";
 import { flights } from "./services/communicationManager";
+import FlightData from "./Components/FlightData";
 
 function App() {
+  const navigate = useNavigate();
+  const [flightData, setFlightData] = useState([]);
   const [cityNames, setCityNames] = useState([]);
   const [cityCodes, setCityCodes] = useState([]);
   const [origin, setOrigin] = useState("");
@@ -94,10 +97,14 @@ function App() {
       departureDate: departureDateFormatted,
       returnDate: returnDateFormatted,
       adults: 2,
+      children: 0,
+      infants: 0,
       nonStop: false,
+      max: 4,
     };
 
     const response = await flights(requestBody);
+    setFlightData(response);
   }
 
   return (
@@ -107,13 +114,15 @@ function App() {
           <Link to="/login" className="border border-night ml-2 w-[6rem]">
             LOGIN
           </Link>
-          <Link
-            to="/register"
-            className="border border-night ml-2 w-[6rem]"
-          >
+          <Link to="/register" className="border border-night ml-2 w-[6rem]">
             SINGUP
           </Link>
-          <Link to="/searchTravel" className="border border-night ml-2 w-[6rem]">SearchTravel</Link>
+          <Link
+            to="/searchTravel"
+            className="border border-night ml-2 w-[6rem]"
+          >
+            SearchTravel
+          </Link>
         </nav>
       </header>
       <main className="h-screen flex flex-col justify-center items-center">
@@ -221,6 +230,7 @@ function App() {
             </svg>
           </button>
         </div>
+        {flightData && <FlightData flightData={flightData} />}
       </main>
     </div>
   );

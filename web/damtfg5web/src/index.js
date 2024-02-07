@@ -1,23 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import React from "react";
+import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import './index.css';
-import App from './App';
-import Login from './Pages/Login.js'
-import RegisterPage from './Pages/Register.js';
-import SearchTravel from './Pages/SearchTravel.js';
-import reportWebVitals from './reportWebVitals';
+import "./index.css";
+import App from "./App";
+import Login from "./Pages/Login.js";
+import RegisterPage from "./Pages/Register.js";
+import SearchTravel from "./Pages/SearchTravel.js";
+import reportWebVitals from "./reportWebVitals";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Routes>
         <Route path="/">
-          <Route index element={<App/>}/>
-          <Route path="/login" element={<Login/>}/>
-          <Route path="/register" element={<RegisterPage/>}/>
-          <Route path="/searchTravel" element={<SearchTravel/>}/>
+          <Route index element={<App />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<RegisterPage />} />
+          <Route path="/searchTravel" element={<SearchTravel />} />
         </Route>
       </Routes>
     </BrowserRouter>
