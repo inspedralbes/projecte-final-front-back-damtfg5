@@ -99,16 +99,17 @@ function App() {
       adults: 2,
       children: 0,
       infants: 0,
-      nonStop: false,
+      nonStop: true,
       max: 4,
     };
 
     const response = await flights(requestBody);
     setFlightData(response);
+    console.log(response);
   }
 
   return (
-    <div className="App bg-[url('./Images/nubesGifVerde.gif')] bg-cover">
+    <div className="App">
       <header className="fixed h-20 w-[100%]">
         <nav className="App-nav h-[100%] flex justify-end">
           <Link to="/login" className="border border-night ml-2 w-[6rem]">
@@ -125,13 +126,14 @@ function App() {
           </Link>
         </nav>
       </header>
-      <main className="h-screen flex flex-col justify-center items-center">
+      <main className="bg-[url('./Images/nubesGifVerde.gif')] bg-cover h-screen flex flex-col justify-center items-center">
         <div className="text-[7rem]">
           <h1>Web TITLE</h1>
         </div>
         <div className="text-[3rem]">
           <h1>ESLOGAN</h1>
         </div>
+        {/* SEARCH DATA */}
         <div className="h-20 w-[50%] rounded-[20rem] m-3 flex bg-honeydew">
           <div className="s-1l bg-honeydew">
             <div className="s-1l-s bg-light-green hidden"></div>
@@ -230,8 +232,13 @@ function App() {
             </svg>
           </button>
         </div>
-        {flightData && <FlightData flightData={flightData} />}
+        {/* INFO FLIGHTS */}
       </main>
+      <h1 className="text-2xl font-bold mb-4 bg-viridian h-[7vh] w-[100%]">
+        Resultados de la búsqueda:
+      </h1>
+      <div>Filtros: </div>
+      <div>{flightData && <FlightData flightData={flightData} />}</div>
     </div>
   );
 }
