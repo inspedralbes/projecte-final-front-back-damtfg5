@@ -115,7 +115,6 @@ function App() {
 
     const response = await flights(requestBody);
     setFlightData(response);
-    console.log(response);
   }
 
   async function handleHotel() {
@@ -127,21 +126,24 @@ function App() {
 
     const responseListing = await hotelListing(listingBody);
     setHotelListingData(responseListing);
-    // console.log(hotelListingData.data[0].hotelId);
+
+    getHotelOffers();
+  }
+
+  async function getHotelOffers() {
+    const departureDateFormatted = formatDate(departureDate);
+    const returnDateFormatted = formatDate(returnDate);
 
     const offersBody = {
-      hotelIds: hotelListingData[0].hotelId,
+      hotelIds: hotelListingData.data[0].hotelId,
       adults: adults,
-      children: children,
-      infants: infants,
-      checkInDate: departureDate,
-      checkOutDate: returnDate,
+      checkInDate: departureDateFormatted,
+      checkOutDate: returnDateFormatted,
       roomQuantity: 1,
     };
 
     const responseOffers = await hotelOffers(offersBody);
     setHotelOffersData(responseOffers);
-    console.log(responseOffers);
   }
 
   return (
