@@ -61,7 +61,7 @@ app.post("/flights", (req, res) => {
     });
 });
 
-app.get("/hotelsListing", (req, res) => {
+app.post("/hotelsListing", (req, res) => {
   const apiUrl =
     "https://test.api.amadeus.com/v1/reference-data/locations/hotels/by-city";
 
@@ -87,7 +87,7 @@ app.get("/hotelsListing", (req, res) => {
     });
 });
 
-app.get("/hotelOffers", (req, res) => {
+app.post("/hotelOffers", (req, res) => {
   const apiUrl = "https://test.api.amadeus.com/v3/shopping/hotel-offers";
 
   const params = new URLSearchParams(req.body).toString();

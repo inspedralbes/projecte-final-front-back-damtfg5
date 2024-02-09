@@ -34,3 +34,37 @@ export async function flights(body) {
   const data = await response.json();
   return { ...data };
 }
+
+export async function hotelListing(body) {
+  const response = await fetch("http://localhost:3001/hotelsListing/", {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+  if (!response.ok) {
+    throw new Error(
+      `Error en la solicitud: ${response.status} - ${response.statusText}`
+    );
+  }
+  const data = await response.json();
+  return { ...data };
+}
+
+export async function hotelOffers(body) {
+  const response = await fetch("http://localhost:3001/hotelOffers/", {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(body),
+  });
+  if (!response.ok) {
+    throw new Error(
+      `Error en la solicitud: ${response.status} - ${response.statusText}`
+    );
+  }
+  const data = await response.json();
+  return { ...data };
+}

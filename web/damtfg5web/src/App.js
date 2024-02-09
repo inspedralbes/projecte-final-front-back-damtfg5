@@ -8,11 +8,16 @@ import "react-date-range/dist/theme/default.css";
 import Autocomplete from "@mui/joy/Autocomplete";
 import Input from "@mui/joy/Input";
 import { set } from "date-fns";
-import { flights } from "./services/communicationManager";
+import {
+  flights,
+  hotelListing,
+  hotelOffers,
+} from "./services/communicationManager";
 import FlightData from "./Components/FlightData";
 
 function App() {
   const navigate = useNavigate();
+  const [isOpen, setIsOpen] = useState(false);
   const [flightData, setFlightData] = useState([]);
   const [cityNames, setCityNames] = useState([]);
   const [cityCodes, setCityCodes] = useState([]);
@@ -21,6 +26,11 @@ function App() {
   const [departureDate, setdepartureDate] = useState(new Date());
   const [returnDate, setReturnDate] = useState(new Date());
   const [calendarShow, setCalendarShow] = useState(false);
+  const [adults, setAdults] = useState(1);
+  const [children, setChildren] = useState(0);
+  const [infants, setInfants] = useState(0);
+  const [hotelListingData, setHotelListingData] = useState([]);
+  const [hotelOffersData, setHotelOffersData] = useState([]);
 
   const today = new Date();
   const tomorrow = new Date(today);
@@ -96,9 +106,9 @@ function App() {
       destinationLocationCode: destination,
       departureDate: departureDateFormatted,
       returnDate: returnDateFormatted,
-      adults: 2,
-      children: 0,
-      infants: 0,
+      adults: adults,
+      children: children,
+      infants: infants,
       nonStop: true,
       max: 4,
     };
@@ -106,6 +116,32 @@ function App() {
     const response = await flights(requestBody);
     setFlightData(response);
     console.log(response);
+  }
+
+  async function handleHotel() {
+    const listingBody = {
+      cityCode: origin,
+      radius: 5,
+      radiusUnit: "KM",
+    };
+
+    const responseListing = await hotelListing(listingBody);
+    setHotelListingData(responseListing);
+    // console.log(hotelListingData.data[0].hotelId);
+
+    const offersBody = {
+      hotelIds: hotelListingData[0].hotelId,
+      adults: adults,
+      children: children,
+      infants: infants,
+      checkInDate: departureDate,
+      checkOutDate: returnDate,
+      roomQuantity: 1,
+    };
+
+    const responseOffers = await hotelOffers(offersBody);
+    setHotelOffersData(responseOffers);
+    console.log(responseOffers);
   }
 
   return (
@@ -178,6 +214,181 @@ function App() {
                 </svg>
               </div>
             </button>
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className="border border-1 border-viridian rounded-2xl"
+            >
+              {isOpen ? "Ocultar opciones" : "Mostrar opciones"}
+            </button>
+
+            {isOpen && (
+              <div>
+                <label>
+                  Adultos:
+                  <div class="flex items-center gap-x-1.5">
+                    <button
+                      type="button"
+                      class="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                      onClick={() => {
+                        if (adults > 1) setAdults(adults - 1);
+                      }}
+                    >
+                      <svg
+                        class="flex-shrink-0 w-3.5 h-3.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M5 12h14" />
+                      </svg>
+                    </button>
+                    <input
+                      class="p-0 w-6 bg-transparent border-0 text-gray-800 text-center focus:ring-0 dark:text-white"
+                      type="text"
+                      value={adults}
+                      onChange={(e) => setAdults(e.target.value)}
+                    ></input>
+                    <button
+                      type="button"
+                      class="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                      onClick={() => setAdults(adults + 1)}
+                    >
+                      <svg
+                        class="flex-shrink-0 w-3.5 h-3.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M5 12h14" />
+                        <path d="M12 5v14" />
+                      </svg>
+                    </button>
+                  </div>
+                </label>
+
+                <label>
+                  Número de niños:
+                  <div class="flex items-center gap-x-1.5">
+                    <button
+                      type="button"
+                      class="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                      onClick={() => {
+                        if (children >= 1) setChildren(children - 1);
+                      }}
+                    >
+                      <svg
+                        class="flex-shrink-0 w-3.5 h-3.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M5 12h14" />
+                      </svg>
+                    </button>
+                    <input
+                      class="p-0 w-6 bg-transparent border-0 text-gray-800 text-center focus:ring-0 dark:text-white"
+                      type="text"
+                      value={children}
+                      onChange={(e) => setChildren(e.target.value)}
+                    ></input>
+                    <button
+                      type="button"
+                      class="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                      onClick={() => setChildren(children + 1)}
+                    >
+                      <svg
+                        class="flex-shrink-0 w-3.5 h-3.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M5 12h14" />
+                        <path d="M12 5v14" />
+                      </svg>
+                    </button>
+                  </div>
+                </label>
+
+                <label>
+                  Número de infantes:
+                  <div class="flex items-center gap-x-1.5">
+                    <button
+                      type="button"
+                      class="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                      onClick={() => {
+                        if (infants >= 1) setInfants(infants - 1);
+                      }}
+                    >
+                      <svg
+                        class="flex-shrink-0 w-3.5 h-3.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M5 12h14" />
+                      </svg>
+                    </button>
+                    <input
+                      class="p-0 w-6 bg-transparent border-0 text-gray-800 text-center focus:ring-0 dark:text-white"
+                      type="text"
+                      value={infants}
+                      onChange={(e) => setInfants(e.target.value)}
+                    ></input>
+                    <button
+                      type="button"
+                      class="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                      onClick={() => setInfants(infants + 1)}
+                    >
+                      <svg
+                        class="flex-shrink-0 w-3.5 h-3.5"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path d="M5 12h14" />
+                        <path d="M12 5v14" />
+                      </svg>
+                    </button>
+                  </div>
+                </label>
+              </div>
+            )}
             {calendarShow ? (
               <div>
                 <DateRange
@@ -219,6 +430,27 @@ function App() {
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
+              strokeWidth={1.5}
+              stroke="currentColor"
+              className="w-8 h-8 m-auto"
+              viewBox="0 -256 1792 1792"
+            >
+              <path
+                d="M1397 1324q0-87-149-236l-240-240 143-746 1-6q0-14-9-23l-64-64q-9-9-23-9-21 0-29 18L753 593 508 348q68-238 68-252t-9-23L503 9q-9-9-23-9-18 0-28 16L297 296 17 451q-17 9-17 28 0 14 9 23l64 65q9 9 23 9t252-68l245 245-575 274q-18 8-18 29 0 14 9 23l64 64q9 9 23 9 4 0 6-1l746-143 240 240q149 149 236 149 32 0 52.5-20.5t20.5-52.5z"
+                style={{
+                  fill: "currentColor",
+                }}
+                transform="matrix(1 0 0 -1 205.017 1330.983)"
+              />
+            </svg>
+          </button>
+          <button
+            className="border border-customGreen bg-light-green rounded-full w-[7%] m-3 hover:bg-customGreen"
+            onClick={handleHotel}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
               viewBox="0 0 24 24"
               strokeWidth={1.5}
               stroke="currentColor"
@@ -227,7 +459,7 @@ function App() {
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z"
+                d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z"
               />
             </svg>
           </button>
