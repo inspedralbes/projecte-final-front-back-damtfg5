@@ -164,7 +164,7 @@ function App() {
           </Link>
         </nav>
       </header>
-      <main className="bg-[url('./Images/nubesGifVerde.gif')] bg-cover h-screen flex flex-col justify-center items-center">
+      <div className="bg-[url('./Images/pi.jpg')] bg-cover h-screen flex flex-col justify-center items-center bg-black/30">
         <div className="text-[7rem]">
           <h1>Web TITLE</h1>
         </div>
@@ -172,7 +172,7 @@ function App() {
           <h1>ESLOGAN</h1>
         </div>
         {/* SEARCH DATA */}
-        <div className="h-20 w-[50%] rounded-[20rem] m-3 flex bg-honeydew">
+        <div className="h-20 w-[70%] rounded-[20rem] m-3 flex bg-honeydew">
           <div className="s-1l bg-honeydew">
             <div className="s-1l-s bg-light-green hidden"></div>
             <div className="ml-4 mt-3">
@@ -467,12 +467,16 @@ function App() {
           </button>
         </div>
         {/* INFO FLIGHTS */}
-      </main>
-      <h1 className="text-2xl font-bold mb-4 bg-viridian h-[7vh] w-[100%]">
-        Resultados de la búsqueda:
-      </h1>
-      <div>Filtros: </div>
-      <div>{flightData && <FlightData flightData={flightData} />}</div>
+      </div>
+      <div className="p-3 flex text-4xl flex font-bold font-sans w-full mb-4 mt-20">Resultados de la busqueda: </div>
+      <section className="flex w-full">
+        <div className=" border-r border-black w-[20%] p-3">
+          {/* CLASE(PRIMERA, BUSINESS, TURISTA), NUM PERSONAS, HORA SALIDA, ESCALA(SI O NO), PRECIO, */}
+          <div className=" border-b border-black flex text-2xl flex font-bold font-sans w-full">Fliters:</div>
+          <div ></div>
+        </div>
+        {flightData && <FlightData flightData={flightData} />}
+      </section>
     </div>
   );
 }
