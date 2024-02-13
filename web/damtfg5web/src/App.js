@@ -119,7 +119,7 @@ function App() {
 
   async function handleHotel() {
     const listingBody = {
-      cityCode: origin,
+      cityCode: destination,
       radius: 5,
       radiusUnit: "KM",
     };

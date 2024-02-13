@@ -67,7 +67,6 @@ app.post("/hotelsListing", (req, res) => {
   const apiUrl =
     "https://test.api.amadeus.com/v1/reference-data/locations/hotels/by-city";
 
-  console.log(req.body);
   const params = new URLSearchParams(req.body).toString();
 
   const url = `${apiUrl}?${params.toString()}`;
@@ -80,19 +79,22 @@ app.post("/hotelsListing", (req, res) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       res.json(data);
     })
     .catch((error) => {
       console.error(error);
       res.status(500).json({ error: "Internal Server Error" });
     });
+
+  console.log(req.body);
 });
 
 app.post("/hotelOffers", (req, res) => {
   const apiUrl = "https://test.api.amadeus.com/v3/shopping/hotel-offers";
 
   const params = new URLSearchParams(req.body).toString();
+  console.log(params);
 
   const url = `${apiUrl}?${params.toString()}`;
   console.log(url);
@@ -104,7 +106,7 @@ app.post("/hotelOffers", (req, res) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
+      // console.log(data);
       res.json(data);
     })
     .catch((error) => {
