@@ -467,7 +467,7 @@ function App() {
           </div>
 
           <div className=" w-[65%] h-[17vh] rounded">
-            <table className="w-full h-full rounded " >
+            <table className="w-full h-full rounded ">
               <tr className="h-[30%] rounded">
                 <td
                   className="flex items-center h-full"
@@ -826,15 +826,23 @@ function App() {
         {/* INFO FLIGHTS */}
       </div>
 
-
-      <div className="border border-black h-[40vh] mt-5">
-        <div>
-          <div>Creamos experiencias y recuerdos</div>
+      <div className="border border-black h-[40vh] w-full mt-5 flex flex-col items-center">
+        <div className=" w-[65%] font-bold font-sans text-xl">
+          Creamos experiencias y recuerdos
         </div>
-
+        <div className=" w-[65%] mt-5 flex justify-between">
+          <div className="border border-black h-[30vh] w-[27%] flex flex-col items-center">
+            <div className="border border-black w-[24%] h-[8vh] rounded-full flex justify-center items-center">ICO</div>
+            <div className="font-bold font-sans text-xl">Buscamos el mejor precio</div>
+          </div>
+          <div className="border border-black h-[30vh] w-[27%]">
+            <div className="font-bold font-sans text-xl">No tienes ni que pensar</div>
+          </div>
+          <div className="border border-black h-[30vh] w-[27%]">
+            <div className="font-bold font-sans text-xl">Puedes crear tu viaje</div>
+          </div>
+        </div>
       </div>
-
-
 
       <div className="p-3 flex text-4xl flex font-bold font-sans w-full mb-4 mt-20">
         Resultados de la busqueda:{" "}
