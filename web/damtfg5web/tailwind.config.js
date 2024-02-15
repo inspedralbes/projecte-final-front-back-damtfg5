@@ -14,7 +14,7 @@ module.exports = {
         'blue21':'#2196F3',
         'blue42':'#42A5F5'
         }
-    },
+    }
   },
   plugins: [],
 };

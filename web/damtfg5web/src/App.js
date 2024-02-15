@@ -826,37 +826,80 @@ function App() {
         {/* INFO FLIGHTS */}
       </div>
 
-      <div className="border border-black h-[40vh] w-full mt-5 flex flex-col items-center">
-        <div className=" w-[65%] font-bold font-sans text-xl">
+      <div className=" h-[40vh] w-full mt-14 flex flex-col items-center">
+        <div className=" w-[65%] font-bold font-sans text-4xl">
           Creamos experiencias y recuerdos
         </div>
-        <div className=" w-[65%] mt-5 flex justify-between">
-          <div className="border border-black h-[30vh] w-[27%] flex flex-col items-center">
-            <div className="border border-black w-[4%] h-[8vh] absolute top-[55%] rounded-full flex justify-center items-center">ICO</div>
-            <div className="font-bold font-sans text-xl">Buscamos el mejor precio</div>
+        <div className=" w-[65%] flex justify-between mt-14">
+          <div className="rounded h-[30vh] w-[27%] shadow-xl flex flex-col items-center">
+            <div className=" w-full h-[50%] flex justify-center">
+              <img
+                src="https://youtalkonline.com/wp-content/uploads/decir-viaje-en-ingl%C3%A9s.jpg"
+                className="h-full w-full object-cover"
+                alt="Imagen de ejemplo"
+              />
+            </div>
+            <div className="font-bold font-sans text-2xl mt-7">Buscamos el mejor precio</div>
+            <div className="font-sans text-xl text-gray-500 w-[80%] mt-4">Los mejores precios buscados por IA, porque en Journify todo es mas facil.</div>
           </div>
-          <div className="border border-black h-[30vh] w-[27%]">
-            <div className="font-bold font-sans text-xl">No tienes ni que pensar</div>
+          <div className="rounded h-[30vh] w-[27%] shadow-xl flex flex-col items-center">
+            <div className=" w-full h-[50%] flex justify-center">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Vista_Aerea_del_Cristo_de_la_Concordia.jpg/1020px-Vista_Aerea_del_Cristo_de_la_Concordia.jpg"
+                className="h-full w-full object-cover"
+                alt="Imagen de ejemplo"
+              />
+            </div>
+            <div className="font-bold font-sans text-2xl mt-7">No tienes ni que pensar</div>
+            <div className="font-sans text-xl text-gray-500 w-[80%] mt-4">Te creamos un planazo para que disfrutes en compañia o solo con IA.</div>
           </div>
-          <div className="border border-black h-[30vh] w-[27%]">
-            <div className="font-bold font-sans text-xl">Puedes crear tu viaje</div>
+
+          <div className="rounded h-[30vh] w-[27%] shadow-xl flex flex-col items-center">
+            <div className=" w-full h-[50%] flex justify-center">
+              <img
+                src="https://us.123rf.com/450wm/anyaivanova/anyaivanova2305/anyaivanova230504011/205280356-un-grupo-de-personas-caminando-hacia-una-imagen-generativa-de-ai-de-un-avi%C3%B3n.jpg?ver=6"
+                className="h-full w-full object-cover"
+                alt="Imagen de ejemplo"
+              />
+            </div>
+            <div className="font-bold font-sans text-2xl mt-7">Puedes crear tu viaje</div>
+            <div className="font-sans text-xl text-gray-500  w-[80%] mt-4">Puedes editar tus viajes a tu gusto por si eres mas de la vieja escuela.</div>
           </div>
         </div>
       </div>
 
-      <div className="p-3 flex text-4xl flex font-bold font-sans w-full mb-4 mt-20">
-        Resultados de la busqueda:{" "}
-      </div>
-      <section className="flex w-full">
-        <div className=" border-r border-black w-[20%] p-3">
-          {/* CLASE(PRIMERA, BUSINESS, TURISTA), NUM PERSONAS, HORA SALIDA, ESCALA(SI O NO), PRECIO, */}
-          <div className=" border-b border-black flex text-2xl flex font-bold font-sans w-full">
-            Fliters:
-          </div>
-          <div></div>
+
+      <div className="w-full mt-5 flex flex-col items-center">
+        <div className="w-[65%] p-3 flex text-4xl font-bold font-sans mb-4 mt-20">
+          Resultados de la busqueda:{" "}
         </div>
-        {flightData && <FlightData flightData={flightData} />}
-      </section>
+        <div className="flex w-[65%]">
+          {flightData && <FlightData flightData={flightData} />}
+        </div>
+      </div>
+
+      {/* FOOTER */}
+      <div className="w-full mt-5 flex flex-col items-center bg-blue21 h-[40vh]">
+        <div className="border border-black w-[65%] h-full mt-12 mb-12 flex justify-evenly">
+          <div className="border border-black w-[30%]">
+            <div className="border border-black font-sans font-bold text-2xl flex">Servicios</div>
+            <div className="flex mt-3">
+              <ul className="border border-black flex flex-col items-start">
+                <li className="mb-3">Vuelos</li>
+                <li className="mb-3">Hoteles</li>
+                <li className="mb-3">Vuelo + hotel</li>
+                <li className="mb-3">Generar itinerario</li>
+              </ul>
+            </div>
+          </div>
+          <div className="border border-black w-[30%]">
+            <div className="border border-black font-sans font-bold text-2xl flex">Sobre nosotros</div>
+          </div>
+          <div className="border border-black w-[30%]">
+            <div className="border border-black font-sans font-bold text-2xl flex">Contacto</div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
