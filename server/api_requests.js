@@ -61,31 +61,55 @@ app.post("/flights", (req, res) => {
     });
 });
 
-app.post("/hotelsListing", (req, res) => {
+app.post("/hotelsListing", async (req, res) => {
   const apiUrl =
     "https://test.api.amadeus.com/v1/reference-data/locations/hotels/by-city";
 
-  const params = new URLSearchParams(req.body).toString();
+  const params = new URLSearchParams(req.body.listing[0]).toString();
 
   const url = `${apiUrl}?${params.toString()}`;
-  console.log(url);
-  fetch(url, {
+
+  const response = await fetch(url, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${apiKey}`,
     },
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      // console.log(data);
-      res.json(data);
-    })
-    .catch((error) => {
+  }).catch((error) => {
+    console.error(error);
+    res.status(500).json({ error: "Internal Server Error" });
+  });
+
+  const hotelsData = await response.json();
+
+  let hotelIds = hotelsData.data.map((hotel) => hotel.hotelId);
+
+  let paramsOffer = new URLSearchParams(req.body.offer[0]).toString();
+  let hotelOffersData = [];
+
+  for (let i = 0; i < hotelIds.length; i++) {
+    let modifiedParams =
+      paramsOffer.slice(0, 9) + hotelIds[i] + paramsOffer.slice(9);
+
+    const offerUrl = `https://test.api.amadeus.com/v3/shopping/hotel-offers?${modifiedParams}`;
+
+    const offerResponse = await fetch(offerUrl, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+      },
+    }).catch((error) => {
       console.error(error);
       res.status(500).json({ error: "Internal Server Error" });
     });
 
-  console.log(req.body);
+    const offerData = await offerResponse.json();
+
+    if (offerData.data) {
+      hotelOffersData.push(offerData.data);
+    }
+  }
+
+  res.json(hotelOffersData);
 });
 
 app.post("/hotelOffers", (req, res) => {
