@@ -832,7 +832,7 @@ function App() {
         </div>
         <div className=" w-[65%] mt-5 flex justify-between">
           <div className="border border-black h-[30vh] w-[27%] flex flex-col items-center">
-            <div className="border border-black w-[24%] h-[8vh] rounded-full flex justify-center items-center">ICO</div>
+            <div className="border border-black w-[4%] h-[8vh] absolute top-[55%] rounded-full flex justify-center items-center">ICO</div>
             <div className="font-bold font-sans text-xl">Buscamos el mejor precio</div>
           </div>
           <div className="border border-black h-[30vh] w-[27%]">
