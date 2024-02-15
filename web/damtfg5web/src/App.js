@@ -148,7 +148,7 @@ function App() {
 
   return (
     <div className="App">
-      <header className="fixed h-[6vh] w-[100%]">
+      <header className="fixed h-[7vh] w-[100%]">
         <nav className="App-nav h-[100%] flex justify-end bg-blue21">
           <Link to="/login" className="ml-2 w-[5rem]">
             <div className="flex flex-col justify-center align-middle h-full text-white-custom font-sans text-base font-bold">
@@ -162,7 +162,7 @@ function App() {
           </Link>
         </nav>
       </header>
-      <div className="bg-[url('./Images/fono2.jpg')] bg-cover h-[80vh] flex flex-col justify-center items-center">
+      <div className="bg-[url('./Images/fono2.jpg')] bg-cover h-[50vh] flex flex-col justify-center items-center">
         <div className=" w-full h-[80vh] flex flex-col justify-center items-center">
           <div className="text-[7rem] text-white-custom font-sans">
             <h1>Web TITLE</h1>
@@ -424,7 +424,7 @@ function App() {
                 </div>
               )}
             </div>
-            {/* <button
+            <button
               className="border border-customGreen bg-light-green rounded-full w-[7%] m-3 hover:bg-customGreen"
               onClick={handleSearch}
             >
@@ -463,50 +463,379 @@ function App() {
                   d="M2.25 21h19.5m-18-18v18m10.5-18v18m6-13.5V21M6.75 6.75h.75m-.75 3h.75m-.75 3h.75m3-6h.75m-.75 3h.75m-.75 3h.75M6.75 21v-3.375c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21M3 3h12m-.75 4.5H21m-3.75 3.75h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Zm0 3h.008v.008h-.008v-.008Z"
                 />
               </svg>
-            </button> */}
+            </button>
           </div>
 
-          <div className="w-[70%] h-[15vh] bg-white/70 p-5">
-            <div className="border border-black flex">Vuelos</div>
-            <div className="flex">
-              <div className="">
-                <h3 className="flex mt-3 font-bold">Origen</h3>
-                <div className=" mt-1">
-                  <Autocomplete
-                    placeholder="Origen"
-                    options={cityNames}
-                    onChange={(event, newValue) => {
-                      setOriginCode(newValue);
-                    }}
-                  />
-                </div>
-              </div>
-              <div className="">
-                <h3 className="flex mt-3 font-bold">Destino</h3>
-                <div className=" mt-1">
-                  <Autocomplete
-                    placeholder="Destino"
-                    options={cityNames}
-                    onChange={(event, newValue) => {
-                      setDestinationCode(newValue);
-                    }}
-                  />
-                </div>
-              </div>
+          <div className=" w-[65%] h-[17vh] rounded">
+            <table className="w-full h-full rounded " >
+              <tr className="h-[30%] rounded">
+                <td
+                  className="flex items-center h-full"
+                  style={{ margin: 0, padding: 0 }}
+                >
+                  <div
+                    className="w-[13%] h-full flex justify-center items-center font-semibold bg-blue42 rounded-tl-lg"
+                    style={{ margin: 0, padding: 0 }}
+                  >
+                    <button
+                      className="border-r border-black w-full"
+                      style={{ margin: 0, padding: 0 }}
+                    >
+                      IDA
+                    </button>
+                  </div>
+                  <div
+                    className="w-[13%] h-full flex justify-center items-center font-semibold bg-blue42 rounded-tr-lg"
+                    style={{ margin: 0, padding: 0 }}
+                  >
+                    <button
+                      className="w-full"
+                      style={{ margin: 0, padding: 0 }}
+                    >
+                      IDA Y VUELTA
+                    </button>
+                  </div>
+                </td>
+              </tr>
+              <tr className="bg-blue42 rounded">
+                <td
+                  className="h-full flex flex-row justify-start items-center rounded"
+                  style={{ margin: 0, padding: 0 }}
+                >
+                  <div
+                    className="h-[80%] w-[80%] bg-white-custom rounded "
+                    style={{ margin: 10, padding: 0 }}
+                  >
+                    <table className="w-full h-full rounded">
+                      <tr className="h-[25%] w-full">
+                        <td className="border-r border-gray-400 w-[20%]">
+                          <div className=" flex ml-2 text-gray-400 text-sm">
+                            Origen
+                          </div>
+                        </td>
+                        <td className="border-r border-gray-400 w-[20%]">
+                          <div className=" flex ml-2 text-gray-400 text-sm">
+                            Destino
+                          </div>
+                        </td>
+                        <td className="border-r border-gray-400 w-[35%]">
+                          <div className=" flex ml-2 text-gray-400 text-sm">
+                            Ida y vuelta
+                          </div>
+                        </td>
+                        <td className=" w-[25%]">
+                          <div className=" flex ml-2 text-gray-400 text-sm">
+                            Pasajeros
+                          </div>
+                        </td>
+                      </tr>
+                      <tr className="rounded">
+                        <td className="border-r border-gray-400 w-[20%]">
+                          <div className="flex ml-2 mr-2">
+                            <Autocomplete
+                              placeholder="Origen"
+                              options={cityNames}
+                              onChange={(event, newValue) => {
+                                setOriginCode(newValue);
+                              }}
+                            />
+                          </div>
+                        </td>
+                        <td className="border-r border-gray-400 w-[20%]">
+                          <div className="flex ml-2 mr-2">
+                            <Autocomplete
+                              placeholder="Destino"
+                              options={cityNames}
+                              onChange={(event, newValue) => {
+                                setDestinationCode(newValue);
+                              }}
+                            />
+                          </div>
+                        </td>
+                        <td className="border-r border-gray-400 w-[35%]">
+                          <div className="flex ml-2 mr-2">
+                            <button onClick={handleCalendar}>
+                              <div className="">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  strokeWidth={1.5}
+                                  stroke="currentColor"
+                                  className="w-6 h-6 m-auto mt-2"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M6.75 3v2.25M17.25 3v2.25M3 18.75V7.5a2.25 2.25 0 0 1 2.25-2.25h13.5A2.25 2.25 0 0 1 21 7.5v11.25m-18 0A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75m-18 0v-7.5A2.25 2.25 0 0 1 5.25 9h13.5A2.25 2.25 0 0 1 21 11.25v7.5m-18 0A2.25 2.25 0 0 0 3 18.75"
+                                  />
+                                </svg>
+                              </div>
+                            </button>
+                            {calendarShow ? (
+                              <div className="fixed mt-12">
+                                <DateRange
+                                  editableDateInputs={true}
+                                  onChange={(item) => {
+                                    setState([item.selection]);
+                                    setdepartureDate(item.selection.startDate);
+                                    setReturnDate(item.selection.endDate);
+                                  }}
+                                  moveRangeOnFirstSelection={false}
+                                  ranges={state}
+                                />
+                              </div>
+                            ) : (
+                              <div>
+                                {state.map((dateRange, index) => (
+                                  <table key={index}>
+                                    <tbody>
+                                      <tr>
+                                        <td className="p-2">
+                                          {changeFormat(dateRange.startDate)}
+                                        </td>
+                                        <td className="p-1">
+                                          {dateRange.endDate
+                                            ? changeFormat(dateRange.endDate)
+                                            : "No end date selected"}
+                                        </td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+                                ))}
+                              </div>
+                            )}
+                          </div>
+                        </td>
+                        <td className=" w-[25%]">
+                          <div className=" flex ml-2 mr-2">
+                            <button
+                              onClick={() => setIsOpen(!isOpen)}
+                              className=" w-full flex justify-between"
+                            >
+                              0 Pasajeros
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                class="w-6 h-6"
+                              >
+                                <path
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  d="m19.5 8.25-7.5 7.5-7.5-7.5"
+                                />
+                              </svg>
+                            </button>
+                            {isOpen && (
+                              <div className="fixed mt-10 bg-white-custom rounded border border-black w-[10%]">
+                                <label>
+                                  Adultos:
+                                  <div class="flex items-center gap-x-1.5">
+                                    <button
+                                      type="button"
+                                      class="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                                      onClick={() => {
+                                        if (adults > 1) setAdults(adults - 1);
+                                      }}
+                                    >
+                                      <svg
+                                        class="flex-shrink-0 w-3.5 h-3.5"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                      >
+                                        <path d="M5 12h14" />
+                                      </svg>
+                                    </button>
+                                    <input
+                                      class="p-0 w-6 bg-transparent border-0 text-gray-800 text-center focus:ring-0 dark:text-white"
+                                      type="text"
+                                      value={adults}
+                                      onChange={(e) =>
+                                        setAdults(e.target.value)
+                                      }
+                                    ></input>
+                                    <button
+                                      type="button"
+                                      class="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                                      onClick={() => setAdults(adults + 1)}
+                                    >
+                                      <svg
+                                        class="flex-shrink-0 w-3.5 h-3.5"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                      >
+                                        <path d="M5 12h14" />
+                                        <path d="M12 5v14" />
+                                      </svg>
+                                    </button>
+                                  </div>
+                                </label>
 
-              <div className="border border-black ml-3 flex">
-                <div>
-                  <h3>Ida</h3>
-                </div>
-                <div>
-                  <h3>Vuelta</h3>
-                </div>
-              </div>
-            </div>
+                                <label>
+                                  Número de niños:
+                                  <div class="flex items-center gap-x-1.5">
+                                    <button
+                                      type="button"
+                                      class="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                                      onClick={() => {
+                                        if (children >= 1)
+                                          setChildren(children - 1);
+                                      }}
+                                    >
+                                      <svg
+                                        class="flex-shrink-0 w-3.5 h-3.5"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                      >
+                                        <path d="M5 12h14" />
+                                      </svg>
+                                    </button>
+                                    <input
+                                      class="p-0 w-6 bg-transparent border-0 text-gray-800 text-center focus:ring-0 dark:text-white"
+                                      type="text"
+                                      value={children}
+                                      onChange={(e) =>
+                                        setChildren(e.target.value)
+                                      }
+                                    ></input>
+                                    <button
+                                      type="button"
+                                      class="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                                      onClick={() => setChildren(children + 1)}
+                                    >
+                                      <svg
+                                        class="flex-shrink-0 w-3.5 h-3.5"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                      >
+                                        <path d="M5 12h14" />
+                                        <path d="M12 5v14" />
+                                      </svg>
+                                    </button>
+                                  </div>
+                                </label>
+
+                                <label>
+                                  Número de infantes:
+                                  <div class="flex items-center gap-x-1.5">
+                                    <button
+                                      type="button"
+                                      class="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                                      onClick={() => {
+                                        if (infants >= 1)
+                                          setInfants(infants - 1);
+                                      }}
+                                    >
+                                      <svg
+                                        class="flex-shrink-0 w-3.5 h-3.5"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                      >
+                                        <path d="M5 12h14" />
+                                      </svg>
+                                    </button>
+                                    <input
+                                      class="p-0 w-6 bg-transparent border-0 text-gray-800 text-center focus:ring-0 dark:text-white"
+                                      type="text"
+                                      value={infants}
+                                      onChange={(e) =>
+                                        setInfants(e.target.value)
+                                      }
+                                    ></input>
+                                    <button
+                                      type="button"
+                                      class="w-6 h-6 inline-flex justify-center items-center gap-x-2 text-sm font-medium rounded-md border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
+                                      onClick={() => setInfants(infants + 1)}
+                                    >
+                                      <svg
+                                        class="flex-shrink-0 w-3.5 h-3.5"
+                                        xmlns="http://www.w3.org/2000/svg"
+                                        width="24"
+                                        height="24"
+                                        viewBox="0 0 24 24"
+                                        fill="none"
+                                        stroke="currentColor"
+                                        stroke-width="2"
+                                        stroke-linecap="round"
+                                        stroke-linejoin="round"
+                                      >
+                                        <path d="M5 12h14" />
+                                        <path d="M12 5v14" />
+                                      </svg>
+                                    </button>
+                                  </div>
+                                </label>
+                              </div>
+                            )}
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                  </div>
+                  <div className=" h-[80%] w-[20%] flex justify-center items-center mr-4">
+                    <button
+                      onClick={handleSearch}
+                      className="w-full h-[70%] rounded-full bg-blue0D text-white"
+                    >
+                      BUSCAR
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </table>
           </div>
         </div>
         {/* INFO FLIGHTS */}
       </div>
+
+
+      <div className="border border-black h-[40vh] mt-5">
+        <div>
+          <div>Creamos experiencias y recuerdos</div>
+        </div>
+
+      </div>
+
+
+
       <div className="p-3 flex text-4xl flex font-bold font-sans w-full mb-4 mt-20">
         Resultados de la busqueda:{" "}
       </div>
