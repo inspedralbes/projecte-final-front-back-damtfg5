@@ -14,11 +14,13 @@ import {
   hotelOffers,
 } from "./services/communicationManager";
 import FlightData from "./Components/FlightData";
+import HotelData from "./Components/HotelData";
 
 function App() {
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [flightData, setFlightData] = useState([]);
+  const [hotelData, setHotelData] = useState([]);
   const [cityNames, setCityNames] = useState([]);
   const [cityCodes, setCityCodes] = useState([]);
   const [origin, setOrigin] = useState("");
@@ -29,8 +31,6 @@ function App() {
   const [adults, setAdults] = useState(1);
   const [children, setChildren] = useState(0);
   const [infants, setInfants] = useState(0);
-  const [hotelListingData, setHotelListingData] = useState([]);
-  const [hotelOffersData, setHotelOffersData] = useState([]);
 
   const today = new Date();
   const tomorrow = new Date(today);
@@ -114,36 +114,37 @@ function App() {
     };
 
     const response = await flights(requestBody);
+    await handleHotel();
     setFlightData(response);
   }
 
   async function handleHotel() {
-    const listingBody = {
-      cityCode: destination,
-      radius: 5,
-      radiusUnit: "KM",
-    };
-
-    const responseListing = await hotelListing(listingBody);
-    setHotelListingData(responseListing);
-
-    getHotelOffers();
-  }
-
-  async function getHotelOffers() {
     const departureDateFormatted = formatDate(departureDate);
     const returnDateFormatted = formatDate(returnDate);
 
-    const offersBody = {
-      hotelIds: hotelListingData.data[0].hotelId,
-      adults: adults,
-      checkInDate: departureDateFormatted,
-      checkOutDate: returnDateFormatted,
-      roomQuantity: 1,
-    };
+    
+    const listingBody = {
+      listing:[       
+             {
+                 cityCode:destination,
+                 radius: 2,
+                 radiusUnit: "KM",
+                 ratings:"3,4,5"
+             }
+      ],
+      offer:[
+         {
+         hotelIds: "",
+         adults: adults,
+         checkInDate:departureDateFormatted,
+         checkOutDate:returnDateFormatted,
+         roomQuantity:1
+     }
+      ]
+     };
 
-    const responseOffers = await hotelOffers(offersBody);
-    setHotelOffersData(responseOffers);
+    const responseListing = await hotelListing(listingBody);
+    setHotelData(responseListing);
   }
 
   return (
@@ -163,12 +164,12 @@ function App() {
         </nav>
       </header>
       <div className="bg-[url('./Images/fono2.jpg')] bg-cover h-[50vh] flex flex-col justify-center items-center">
-        <div className=" w-full h-[80vh] flex flex-col justify-center items-center">
-          <div className="text-[7rem] text-white-custom font-sans">
+        <div className=" w-full h-[80vh] flex flex-col justify-center items-center bg-black/30 mt-16">
+          <div className="text-[7rem] text-white-custom font-sans hidden">
             <h1>Web TITLE</h1>
           </div>
-          <div className="text-[3rem] text-white-custom font-sans">
-            <h1>ESLOGAN</h1>
+          <div className="text-[3rem] text-white-custom font-sans font-extrabold">
+            <h1>FLY, STAY AND EXPLORE</h1>
           </div>
           {/* SEARCH DATA */}
           <div className="h-20 w-[70%] rounded m-3 flex bg-black/70 justify-end hidden">
@@ -466,7 +467,7 @@ function App() {
             </button>
           </div>
 
-          <div className=" w-[65%] h-[17vh] rounded">
+          <div className=" w-[65%] h-[17vh] rounded mt-10">
             <table className="w-full h-full rounded ">
               <tr className="h-[30%] rounded">
                 <td
@@ -831,7 +832,7 @@ function App() {
           Creamos experiencias y recuerdos
         </div>
         <div className=" w-[65%] flex justify-between mt-14">
-          <div className="rounded h-[30vh] w-[27%] shadow-xl flex flex-col items-center">
+          <div className="rounded h-[40vh] w-[27%] shadow-xl flex flex-col items-center">
             <div className=" w-full h-[50%] flex justify-center">
               <img
                 src="https://youtalkonline.com/wp-content/uploads/decir-viaje-en-ingl%C3%A9s.jpg"
@@ -842,7 +843,7 @@ function App() {
             <div className="font-bold font-sans text-2xl mt-7">Buscamos el mejor precio</div>
             <div className="font-sans text-xl text-gray-500 w-[80%] mt-4">Los mejores precios buscados por IA, porque en Journify todo es mas facil.</div>
           </div>
-          <div className="rounded h-[30vh] w-[27%] shadow-xl flex flex-col items-center">
+          <div className="rounded h-[40vh] w-[27%] shadow-xl flex flex-col items-center">
             <div className=" w-full h-[50%] flex justify-center">
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Vista_Aerea_del_Cristo_de_la_Concordia.jpg/1020px-Vista_Aerea_del_Cristo_de_la_Concordia.jpg"
@@ -854,7 +855,7 @@ function App() {
             <div className="font-sans text-xl text-gray-500 w-[80%] mt-4">Te creamos un planazo para que disfrutes en compañia o solo con IA.</div>
           </div>
 
-          <div className="rounded h-[30vh] w-[27%] shadow-xl flex flex-col items-center">
+          <div className="rounded h-[40vh] w-[27%] shadow-xl flex flex-col items-center">
             <div className=" w-full h-[50%] flex justify-center">
               <img
                 src="https://us.123rf.com/450wm/anyaivanova/anyaivanova2305/anyaivanova230504011/205280356-un-grupo-de-personas-caminando-hacia-una-imagen-generativa-de-ai-de-un-avi%C3%B3n.jpg?ver=6"
@@ -869,14 +870,26 @@ function App() {
       </div>
 
 
-      <div className="w-full mt-5 flex flex-col items-center">
-        <div className="w-[65%] p-3 flex text-4xl font-bold font-sans mb-4 mt-20">
-          Resultados de la busqueda:{" "}
+      <div className="w-full flex flex-col items-center justify-center mt-20">
+        <div className="w-[65%] p-3 text-4xl font-bold font-sans mb-4 mt-20">
+          Resultados de vuelos:{" "}
         </div>
         <div className="flex w-[65%]">
           {flightData && <FlightData flightData={flightData} />}
         </div>
       </div>
+
+
+
+      <div className="w-full flex flex-col items-center justify-center mt-20">
+        <div className="w-[65%] p-3 text-4xl font-bold font-sans mb-4 mt-20">
+          Resultados de hoteles:{" "}
+        </div>
+        <div className="flex w-[65%]">
+          {hotelData && <HotelData hotelData={hotelData} />}
+        </div>
+      </div>
+
 
       {/* FOOTER */}
       <div className="w-full mt-5 flex flex-col items-center bg-blue21 h-[40vh]">

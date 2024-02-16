@@ -2,7 +2,7 @@ import React from "react";
 
 export default function FlightCard({ flight }) {
   return (
-    <div className="mb-8 bg-white w-[100%] h-[70vh] shadow-xl">
+    <button className="mb-8 bg-white w-[100%] h-[70vh] shadow-xl">
       {/* PARTE DE LA IMAGEN */}
       <div className="h-[30vh] w-full overflow-hidden">
         <img
@@ -48,6 +48,6 @@ export default function FlightCard({ flight }) {
           ${flight.price.total}
         </p>
       </div>
-    </div>
+    </button>
   );
 }
