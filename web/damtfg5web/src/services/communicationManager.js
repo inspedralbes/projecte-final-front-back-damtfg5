@@ -1,5 +1,5 @@
 export async function log(username, password) {
-  const response = await fetch("http://localhost:3777/authorizationLogin/", {
+  const response = await fetch("http://tsg5.dam.inspedralbes.cat:3001/authorizationLogin/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -19,7 +19,7 @@ export async function log(username, password) {
 }
 
 export async function flights(body) {
-  const response = await fetch("http://localhost:3001/flights/", {
+  const response = await fetch("http://tsg5.dam.inspedralbes.cat:3001/flights/", {
     method: "post",
     headers: {
       "Content-Type": "application/json",
@@ -36,7 +36,7 @@ export async function flights(body) {
 }
 
 export async function hotelListing(body) {
-  const response = await fetch("http://localhost:3001/hotelsListing/", {
+  const response = await fetch("http://tsg5.dam.inspedralbes.cat:3001/hotelsListing/", {
     method: "post",
     headers: {
       "Content-Type": "application/json",
@@ -53,7 +53,7 @@ export async function hotelListing(body) {
 }
 
 export async function hotelOffers(body) {
-  const response = await fetch("http://localhost:3001/hotelOffers/", {
+  const response = await fetch("http://tsg5.dam.inspedralbes.cat:3001/hotelOffers/", {
     method: "post",
     headers: {
       "Content-Type": "application/json",

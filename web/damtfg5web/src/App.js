@@ -45,7 +45,7 @@ function App() {
   ]);
 
   useEffect(() => {
-    fetch("http://localhost:3001/cityCodes")
+    fetch("http://tsg5.dam.inspedralbes.cat:3001/cityCodes")
       .then((response) => response.json())
       .then((data) => {
         const names = data.ciudades.map((ciudad) => ciudad.nombre);
