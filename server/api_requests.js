@@ -106,6 +106,7 @@ app.post("/hotelsListing", async (req, res) => {
 
     const offerData = await offerResponse.json();
 
+    console.log(offerData);
     if (offerData.data) {
       hotelOffersData.push(offerData.data);
     }
